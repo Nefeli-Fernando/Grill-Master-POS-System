@@ -7,5 +7,20 @@
 </head>
 <body>
     
+    <nav class="navbar">
+        <span class="brand">Grill Master POS</span>
+        <button data-target="pos">POS</button>
+        <button data-target="products">Products</button>
+        <button data-target="customers">Customers</button>
+        <button data-target="orders">Orders</button> <!--one system wud handle all the buttons, but each button carries its own label. No need to write a completely separate event listener for every single button-->
+    </nav>
+
+    <main>
+        <section id="pos" class="page active">...</section>
+        <section id="products" class="page-active">...</section>
+        <section id="customers" class="page-active">...</section>
+        <section id="orders">...</section>
+    </main>
+
 </body>
 </html>
