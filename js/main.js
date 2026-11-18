@@ -20,10 +20,16 @@ function createCard(product){
         <p class="card-name">${product.name}</p>
         <div class="card-footer">
             <span class="card-price">${formatPrice(product.price)}</span>
-            <button class="add-btn" data-id="${product.id}">Add</button>
         </div>
         `;
-        return card;
+    const checkbox = document.getElementById("product-checkbox-template").content.cloneNode(true);
+    const input = checkbox.querySelector(".checkbox");
+    input.id = `checkbox-${product.id}`;
+    input.dataset.id = product.id;
+    checkbox.querySelector(".checkbox-label").htmlFor = input.id;
+    card.querySelector(".card-footer").appendChild(checkbox);
+
+    return card;
 }
 
 function renderProducts(){
@@ -32,17 +38,18 @@ function renderProducts(){
         grid.appendChild(createCard(p)));
 }
 
-grid.addEventListener("click",(e) => {
-   const btn = e.target.closest(".add-btn");
-  if (!btn) return;
+grid.addEventListener("change", (e) => {
+  const checkbox = e.target.closest(".checkbox");
+  if (!checkbox) return;
 
-  const product = products.find(p => p.id === Number(btn.dataset.id));
-  const existing = order.find(item => item.id === product.id);
+  const product = products.find(p => p.id === Number(checkbox.dataset.id));
+  if (!product) return;
 
-  if (existing) {
-    existing.qty++;
-  } else {
+  const existingIndex = order.findIndex(item => item.id === product.id);
+  if (checkbox.checked && existingIndex === -1) {
     order.push({ ...product, qty: 1 });
+  } else if (!checkbox.checked && existingIndex !== -1) {
+    order.splice(existingIndex, 1);
   }
 
   const totalItems = order.reduce((sum, item) => sum + item.qty, 0);
@@ -50,3 +57,28 @@ grid.addEventListener("click",(e) => {
 });
 
 renderProducts();
+
+
+/*MAIN MENU BACK*/
+const sidebar = document.getElementById("sidebar");
+const toggle = document.getElementById("toggle");
+const icon = toggle.querySelector("use");
+const links = sidebar.querySelectorAll("nav a");
+
+toggle.addEventListener("click", () => {
+  const open = sidebar.classList.toggle("open");
+  icon.setAttribute("href", open ? "#close" : "#menu");
+  toggle.setAttribute("aria-expanded", open);
+});
+
+links.forEach((link) => {
+  link.addEventListener("click", (e) => {
+    e.preventDefault();
+    links.forEach((l) => {
+      l.classList.remove("on");
+      l.removeAttribute("aria-current");
+    });
+    link.classList.add("on");
+    link.setAttribute("aria-current", "page");
+  });
+});

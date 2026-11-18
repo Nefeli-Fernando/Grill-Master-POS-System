@@ -7,33 +7,102 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
-    
-    <nav class="navbar">
-        <span class="brand">Grill Master POS</span>
-        <button data-target="pos">POS</button>
-        <button data-target="products">Products</button>
-        <button data-target="customers">Customers</button>
-        <button data-target="orders">Orders</button> <!--one system wud handle all the buttons, but each button carries its own label. No need to write a completely separate event listener for every single button-->
-    </nav>
+    <svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="menu" viewBox="0 0 24 24">
+            <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </symbol>
+        <symbol id="close" viewBox="0 0 24 24">
+            <path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </symbol>
+        <symbol id="grid" viewBox="0 0 24 24">
+            <path d="M3 3h8v8H3zM13 3h8v8h-8zM3 13h8v8H3zM13 13h8v8h-8z" fill="currentColor"></path>
+        </symbol>
+        <symbol id="chart" viewBox="0 0 24 24">
+            <path d="M4 19V5h2v12h14v2H4zm4-4V9h3v6H8zm5 0V5h3v10h-3zm5 0v-4h3v4h-3z" fill="currentColor"></path>
+        </symbol>
+        <symbol id="mail" viewBox="0 0 24 24">
+            <path d="M3 5h18v14H3V5zm2 2v.5l7 5 7-5V7H5zm14 10V9.9l-7 5-7-5V17h14z" fill="currentColor"></path>
+        </symbol>
+        <symbol id="gear" viewBox="0 0 24 24">
+            <path d="m19.4 13 .1-1-.1-1 2-1.6-2-3.4-2.4 1a7.8 7.8 0 0 0-1.7-1L15 3h-4l-.4 2.9a7.8 7.8 0 0 0-1.7 1l-2.4-1-2 3.4 2 1.6-.1 1 .1 1-2 1.6 2 3.4 2.4-1a7.8 7.8 0 0 0 1.7 1L11 21h4l.4-2.9a7.8 7.8 0 0 0 1.7-1l2.4 1 2-3.4-2.1-1.7zM13 15.5a3.5 3.5 0 1 1 0-7 3.5 3.5 0 0 1 0 7z" fill="currentColor" transform="translate(-1)"></path>
+        </symbol>
+    </svg>
 
-    <main>
-        <section id="pos" class="page active">...</section>
-        <section id="products" class="page-active">...</section>
-        <section id="customers" class="page-active">...</section>
-        <section id="orders">...</section>
-    </main>
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <button id="toggle" type="button" aria-label="Toggle sidebar" aria-expanded="false">
+                <svg aria-hidden="true"><use href="#menu"></use></svg>
+            </button>
+            <a href="#" class="logo">
+                <svg aria-hidden="true"><use href="#grid"></use></svg>
+                <span>Grill Master</span>
+            </a>
+            <nav aria-label="Main menu">
+                <a href="#" class="on" aria-current="page">
+                    <svg aria-hidden="true"><use href="#grid"></use></svg><span>Dashboard</span>
+                </a>
+                <a href="#">
+                    <svg aria-hidden="true"><use href="#chart"></use></svg><span>Bill</span>
+                </a>
+                <a href="#">
+                    <svg aria-hidden="true"><use href="#mail"></use></svg><span>Messages</span>
+                </a>
+                <a href="#">
+                    <svg aria-hidden="true"><use href="#gear"></use></svg><span>Settings</span>
+                </a>
+            </nav>
+        </aside>
 
-    <h2>New Order</h2>
-        <button data-target="Burger">Burger</button>
-        <button data-target="Fries">Fries</button>
-        <button data-target="Drinks">Drinks</button>
-        <button data-target="Desserts">Desserts</button>
+        <div class="app-content">
+            <nav class="navbar" aria-label="POS navigation">
+                <span class="brand">Grill Master POS</span>
+                <button data-target="pos">POS</button>
+                <button data-target="products">Products</button>
+                <button data-target="customers">Customers</button>
+                <button data-target="orders">Orders</button>
+            </nav>
 
-        <br>
+            <main>
+                <section id="pos" class="page active">...</section>
+                <section id="products" class="page-active">...</section>
+                <section id="customers" class="page-active">...</section>
+                <section id="orders">...</section>
+            </main>
+
+            <h2>New Order</h2>
+            <button data-target="Burger">Burger</button>
+            <button data-target="Fries">Fries</button>
+            <button data-target="Drinks">Drinks</button>
+            <button data-target="Desserts">Desserts</button>
+
             <h1>Burgers</h1>
             <div id="product-grid" class="grid"></div>
+            <template id="product-checkbox-template">
+                <div class="checkbox-container">
+                    <div class="checkbox-wrapper">
+                        <input class="checkbox" id="checkbox" type="checkbox" />
+                        <label class="checkbox-label" for="checkbox">
+                            <div class="checkbox-flip">
+                                <div class="checkbox-front">
+                                    <svg fill="white" height="32" width="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M19 13H12V19H11V13H5V12H11V6H12V12H19V13Z" class="icon-path"></path>
+                                    </svg>
+                                </div>
+                                <div class="checkbox-back">
+                                    <svg fill="white" height="32" width="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M9 19l-7-7 1.41-1.41L9 16.17l11.29-11.3L22 6l-13 13z" class="icon-path"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+            </template>
             <p id="cart-count">Items in order: 0</p>
-            <script src="js/main.js"></script>
+        </div>
+    </div>
+
+    <script src="js/main.js"></script>
 
 </body>
 </html>
