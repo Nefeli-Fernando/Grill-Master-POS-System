@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="Assets\Logos\Fiery Grill Master Food Truck Logo.png">
 </head>
 <body>
     <svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
@@ -34,49 +35,45 @@
                 <svg aria-hidden="true"><use href="#menu"></use></svg>
             </button>
             <a href="#" class="logo">
-                <svg aria-hidden="true"><use href="#grid"></use></svg>
+                <img src="Assets\Logos\Fiery Grill Master Food Truck Logo.png" alt="Grill Master Logo" width="90" height="50">
                 <span>Grill Master</span>
             </a>
             <nav aria-label="Main menu">
                 <a href="#" class="on" aria-current="page">
-                    <svg aria-hidden="true"><use href="#grid"></use></svg><span>Dashboard</span>
+                    <img src="Assets\Logos\6408090.png" alt="POS icon" width="26" height="26"><span><b>POS</b></span>
                 </a>
                 <a href="#">
-                    <svg aria-hidden="true"><use href="#chart"></use></svg><span>Bill</span>
+                    <img src="Assets\Logos\679720.png" alt="POS icon" width="26" height="26"><span><b>Products</b></span>
                 </a>
                 <a href="#">
-                    <svg aria-hidden="true"><use href="#mail"></use></svg><span>Messages</span>
+                    <img src="Assets\Logos\Customers.png" alt="POS icon" width="26" height="26"><span><b>Customers</b></span>
                 </a>
                 <a href="#">
-                    <svg aria-hidden="true"><use href="#gear"></use></svg><span>Settings</span>
+                    <img src="Assets\Logos\Orders.png" alt="POS icon" width="26" height="26"><span><b>Orders</b></span>
                 </a>
             </nav>
         </aside>
 
         <div class="app-content">
-            <nav class="navbar" aria-label="POS navigation">
-                <span class="brand">Grill Master POS</span>
-                <button data-target="pos">POS</button>
-                <button data-target="products">Products</button>
-                <button data-target="customers">Customers</button>
-                <button data-target="orders">Orders</button>
-            </nav>
-
-            <main>
-                <section id="pos" class="page active">...</section>
-                <section id="products" class="page-active">...</section>
-                <section id="customers" class="page-active">...</section>
-                <section id="orders">...</section>
-            </main>
-
-            <h2>New Order</h2>
-            <button data-target="Burger">Burger</button>
-            <button data-target="Fries">Fries</button>
-            <button data-target="Drinks">Drinks</button>
-            <button data-target="Desserts">Desserts</button>
-
-            <h1>Burgers</h1>
-            <div id="product-grid" class="grid"></div>
+                <div class="titlee">
+                    <h2>Grill Master</h2>
+                </div>
+                <div class="menu-layout">
+                    <section class="product-menu" aria-label="Product menu">
+                        <div class="category-buttons">
+                            <button class="btnn" type="button" data-target="Burger" aria-pressed="true">Burger</button>
+                            <button class="btnn" type="button" data-target="Fries" aria-pressed="false">Fries</button>
+                            <button class="btnn" type="button" data-target="Drinks" aria-pressed="false">Drinks</button>
+                            <button class="btnn" type="button" data-target="Desserts" aria-pressed="false">Desserts</button>
+                        </div>
+                    <div class="yuri">
+                        <h1 id="category-heading">Burgers</h1><br>
+                        </div>
+                        <div id="product-grid" class="grid"></div>
+                        <p id="cart-count">Items in order: 0</p>
+                    </section>
+                    <br><br>
+                </div>
             <template id="product-checkbox-template">
                 <div class="checkbox-container">
                     <div class="checkbox-wrapper">
@@ -98,11 +95,12 @@
                     </div>
                 </div>
             </template>
-            <p id="cart-count">Items in order: 0</p>
         </div>
     </div>
 
     <script src="js/main.js"></script>
-
+    <p class="copyright">
+            © Grill Master 2026 | Made by Nefeli Fernando | All Rights Reserved            
+        </p>
 </body>
 </html>
