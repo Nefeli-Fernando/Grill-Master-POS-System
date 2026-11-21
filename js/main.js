@@ -24,7 +24,24 @@ const products = [
     {id: 23, name: "Crispy Onion Burger", description:"A juicy beef patty topped with crunchy fried onions and house sauce", price: 1050, category: "Burger", image: "Assets/Images/Crispy Onion Burger.jpg"}
 ];
 
+
+const fries = [
+    {id: 24, name: "Classic Fries", price: 450, category: "Fries", image: "Assets/Images/Classic Fries.jpg"},
+    {id: 25, name: "Curly Fries", price: 600, category: "Fries", image: "Assets/Images/Curly Fries.webp"},
+    {id: 26, name: "Crispy Wedges", price: 550, category: "Fries", image: "Assets/Images/Crispy Wedges.webp"},
+    {id: 27, name: "Cheese Fries", price: 700, category: "Fries", image: "Assets/Images/Cheese Fries.webp"},
+    {id: 28, name: "Loaded Fries", price: 850, category: "Fries", image: "Assets/Images/Loaded Fries.webp"},
+    {id: 29, name: "Peri Peri Fries", price: 600, category: "Fries", image: "Assets/Images/Peri Peri Fries.webp"},
+    {id: 30, name: "Chilli Cheese Fries", price: 800, category: "Fries", image: "Assets/Images/Chilli Cheese Fries.webp"},
+    {id: 31, name: "Garlic Parmesan Fries", price: 750, category: "Fries", image: "Assets/Images/Garlic Parmesan Fries.webp"},
+    {id: 32, name: "Sweet Potato Fries", price: 650, category: "Fries", image: "Assets/Images/Sweet Potato Fries.webp"},
+    {id: 33, name: "BBQ Fries", price: 650, category: "Fries", image: "Assets/Images/BBQ Fries.webp"}
+];
+
+
+
 const order = [];
+const menuProducts = [...products, ...fries];
 const grid = document.getElementById("product-grid");
 const cartCount = document.getElementById("cart-count");
 
@@ -62,7 +79,7 @@ function createCard(product){
 
 function renderProducts(category = "Burger"){
     grid.innerHTML = "";
-    const categoryProducts = products.filter(product => product.category === category);
+    const categoryProducts = menuProducts.filter(product => product.category === category);
 
     if (categoryProducts.length === 0) {
         grid.textContent = `No ${category.toLowerCase()} available yet.`;
@@ -90,7 +107,7 @@ grid.addEventListener("change", (e) => {
   const checkbox = e.target.closest(".checkbox");
   if (!checkbox) return;
 
-  const product = products.find(p => p.id === Number(checkbox.dataset.id));
+  const product = menuProducts.find(p => p.id === Number(checkbox.dataset.id));
   if (!product) return;
 
   const existingIndex = order.findIndex(item => item.id === product.id);
