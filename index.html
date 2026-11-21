@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Grill Master</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="icon" type="image/png" href="Assets\Logos\Fiery Grill Master Food Truck Logo.png">
 </head>
@@ -39,27 +39,45 @@
                 <span>Grill Master</span>
             </a>
             <nav aria-label="Main menu">
-                <a href="#" class="on" aria-current="page">
+                <a href="pos.html">
                     <img src="Assets\Logos\6408090.png" alt="POS icon" width="26" height="26"><span><b>POS</b></span>
                 </a>
-                <a href="#">
-                    <img src="Assets\Logos\679720.png" alt="POS icon" width="26" height="26"><span><b>Products</b></span>
-                </a>
-                <a href="#">
+                <a href="customers.html">
                     <img src="Assets\Logos\Customers.png" alt="POS icon" width="26" height="26"><span><b>Customers</b></span>
                 </a>
-                <a href="#">
+                <a href="index.html" class="on" aria-current="page">
                     <img src="Assets\Logos\Orders.png" alt="POS icon" width="26" height="26"><span><b>Orders</b></span>
                 </a>
             </nav>
         </aside>
 
         <div class="app-content">
-                <div class="titlee">
+                <header class="page-header">
+                  <div class="titlee">
                     <h2>Grill Master</h2>
                 </div>
+                <div class="cart-widget">
+                    <button class="cart-toggle" id="cart-toggle" type="button" aria-label="Open cart" aria-expanded="false" aria-controls="cart-panel">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M3 3h2l2.4 12.2a2 2 0 0 0 2 1.6h8.8a2 2 0 0 0 2-1.6L22 7H6"></path>
+                        <circle cx="10" cy="21" r="1"></circle>
+                        <circle cx="18" cy="21" r="1"></circle>
+                </svg>
+                <span class="cart-badge" id="cart-badge" aria-live="polite">0</span>
+                    </button>
+                    <section class="cart-panel" id="cart-panel" aria-label="Your cart" hidden>
+                    <h2>Your order</h2>
+                    <ul class="cart-items" id="cart-items"></ul>
+                    <p class="cart-empty" id="cart-empty">Your cart is empty.</p>
+                    <div class="cart-total">
+                        <span>Total</span>
+                        <strong id="cart-total">Rs. 0</strong>
+                    </div>
+                    </section>
+                </div>
+                </header>
                 <div class="menu-layout">
-                    <section class="product-menu" aria-label="Product menu">
+                    <section class="product-menu" id="orders-page" aria-label="Orders">
                         <div class="category-buttons">
                             <button class="btnn" type="button" data-target="Burger" aria-pressed="true">Burger</button>
                             <button class="btnn" type="button" data-target="Fries" aria-pressed="false">Fries</button>
@@ -74,33 +92,22 @@
                     </section>
                     <br><br>
                 </div>
-            <template id="product-checkbox-template">
-                <div class="checkbox-container">
-                    <div class="checkbox-wrapper">
-                        <input class="checkbox" id="checkbox" type="checkbox" />
-                        <label class="checkbox-label" for="checkbox">
-                            <div class="checkbox-flip">
-                                <div class="checkbox-front">
-                                    <svg fill="white" height="32" width="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M19 13H12V19H11V13H5V12H11V6H12V12H19V13Z" class="icon-path"></path>
-                                    </svg>
-                                </div>
-                                <div class="checkbox-back">
-                                    <svg fill="white" height="32" width="32" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                                        <path d="M9 19l-7-7 1.41-1.41L9 16.17l11.29-11.3L22 6l-13 13z" class="icon-path"></path>
-                                    </svg>
-                                </div>
-                            </div>
-                        </label>
-                    </div>
+            <template id="product-add-template">
+                <div class="add-control">
+                    <button class="add-btn" type="button" aria-label="Add item to cart">
+                      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                        <path d="M12 5v14M5 12h14"></path>
+                      </svg>
+                    </button>
                 </div>
             </template>
         </div>
     </div>
 
+    <script src="js/sidebar.js"></script>
     <script src="js/main.js"></script>
-    <p class="copyright">
-            © Grill Master 2026 | Made by Nefeli Fernando | All Rights Reserved            
-        </p>
+    <footer class="copyright">
+        © Grill Master 2026 | Made by Nefeli Fernando | All Rights Reserved
+    </footer>
 </body>
 </html>

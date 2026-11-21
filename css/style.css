@@ -96,23 +96,7 @@ body {
   font-size: 1.05rem;
 }
 
-.add-btn {
-  background: #C62F17;
-  color: #fff;
-  border: 0;
-  border-radius: 8px;
-  padding: 10px 18px;
-  font-size: 15px;
-  min-height: 44px;
-  cursor: pointer;
-}
-
-.add-btn:hover { background: #A82612; }
-.add-btn:active { transform: scale(0.96); }
-
-/*ADD BUTTON STYLES*/
-/* From Uiverse.io by risabbir */
-.checkbox-container {
+.add-control {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -120,75 +104,192 @@ body {
   margin: 0;
 }
 
-.checkbox {
-  display: none;
-}
-
-.checkbox-label {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  cursor: pointer;
-}
-
-.checkbox-flip {
-  width: 46px;
-  height: 46px;
-  perspective: 1000px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  transition: transform 0.4s ease;
-}
-
-.checkbox-front,
-.checkbox-back {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.add-btn {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 2px solid #e5600e;
   border-radius: 50%;
-  backface-visibility: hidden;
-  transition: transform 0.3s ease;
+  background: #e5600e;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color .18s ease, color .18s ease, transform .18s ease;
 }
 
-.checkbox-front {
-  background: linear-gradient(135deg, #f97316, #c62f17);
-  box-shadow: 0 4px 10px rgba(198, 47, 23, .24);
-  transform: rotateY(0deg);
+.add-btn svg {
+  width: 22px;
+  height: 22px;
 }
 
-.checkbox-back {
-  background: linear-gradient(135deg, #39a96b, #247a4a);
-  box-shadow: 0 4px 10px rgba(36, 122, 74, .24);
-  transform: rotateY(180deg);
+.add-btn:hover {
+  transform: scale(1.06);
 }
 
-.checkbox-wrapper:hover .checkbox-flip {
-  transform: scale(1.1);
-  transition: transform 0.4s ease-out;
+.add-btn.is-added {
+  background: #fff;
+  color: #e5600e;
 }
 
-.checkbox:checked + .checkbox-label .checkbox-front {
-  transform: rotateY(180deg);
-}
-
-.checkbox:checked + .checkbox-label .checkbox-back {
-  transform: rotateY(0deg);
-}
-
-.checkbox:focus + .checkbox-label .checkbox-flip {
-  outline: 3px solid rgba(198, 47, 23, .28);
+.add-btn:focus-visible,
+.cart-toggle:focus-visible,
+.cart-quantity button:focus-visible {
+  outline: 3px solid rgba(229, 96, 14, .35);
   outline-offset: 3px;
 }
 
-.icon-path {
-  stroke: white;
-  stroke-width: 2;
-  fill: transparent;
+.page-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.cart-widget {
+  position: relative;
+  z-index: 2;
+}
+
+.cart-toggle {
+  position: relative;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: 1px solid rgba(132, 51, 18, .3);
+  border-radius: 50%;
+  background: #fff;
+  color: #8A1F0D;
+  cursor: pointer;
+  box-shadow: 0 4px 14px rgba(76, 35, 10, .12);
+}
+
+.cart-toggle:hover {
+  background: #fff4e8;
+}
+
+.cart-toggle svg {
+  width: 24px;
+  height: 24px;
+}
+
+.cart-badge {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  display: grid;
+  place-items: center;
+  min-width: 21px;
+  height: 21px;
+  padding: 0 5px;
+  border: 2px solid #fff;
+  border-radius: 999px;
+  background: #e5600e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.cart-panel {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  width: min(360px, calc(100vw - 32px));
+  max-height: min(70vh, 520px);
+  overflow: auto;
+  padding: 18px;
+  border: 1px solid rgba(132, 51, 18, .2);
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 14px 36px rgba(42, 15, 15, .2);
+}
+
+.cart-panel[hidden] {
+  display: none;
+}
+
+.cart-panel h2 {
+  margin-bottom: 12px;
+  color: #2B1B12;
+  font-size: 1.15rem;
+}
+
+.cart-items {
+  display: grid;
+  gap: 12px;
+  list-style: none;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1e7db;
+}
+
+.cart-item-details {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+
+.cart-item-name {
+  color: #2B1B12;
+  font-size: .9rem;
+  font-weight: 700;
+}
+
+.cart-item-price {
+  color: #8A1F0D;
+  font-size: .82rem;
+}
+
+.cart-quantity {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  flex-shrink: 0;
+  color: #2B1B12;
+  font-weight: 700;
+}
+
+.cart-quantity button {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border: 1px solid #e5600e;
+  border-radius: 50%;
+  background: #fff;
+  color: #e5600e;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+.cart-quantity button:hover {
+  background: #fff4e8;
+}
+
+.cart-empty {
+  padding: 12px 0;
+  color: #65676b;
+  font-size: .9rem;
+}
+
+.cart-total {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid #f1e7db;
+  color: #2B1B12;
+}
+
+.cart-total strong {
+  color: #8A1F0D;
 }
 
 
@@ -266,7 +367,7 @@ svg {
   flex: 0 0 76px;
   width: 76px;
   font-style:bold;
-  height: calc(100vh - 32px);
+  height: fit-content;
   padding: 12px 13px;
   overflow: hidden;
   display: flex;
@@ -307,7 +408,7 @@ svg {
   display: flex;
   flex-direction: column;
   gap: 4px;
-  flex: 1;
+  flex: 0 0 auto;
 }
 
 .sidebar :is(a, button):hover {

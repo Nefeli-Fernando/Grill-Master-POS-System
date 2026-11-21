@@ -38,10 +38,85 @@ const fries = [
     {id: 33, name: "BBQ Fries", price: 650, category: "Fries", image: "Assets/Images/BBQ Fries.webp"}
 ];
 
+const drinks = [
+    {id: 34, name: "Coca-Cola", price: 250, category: "Drinks", image: "Assets/Images-d/Coca-Cola.webp"},
+    {id: 35, name: "Sprite", price: 250, category: "Drinks", image: "Assets/Images-d/Sprite.webp"},
+    {id: 36, name: "Fanta Orange", price: 250, category: "Drinks", image: "Assets/Images-d/Fanta Orange.webp"},
+    {id: 37, name: "Pepsi", price: 250, category: "Drinks", image: "Assets/Images-d/Pepsi.webp"},
+    {id: 38, name: "Iced Tea", price: 350, category: "Drinks", image: "Assets/Images-d/Iced tea.webp"},
+    {id: 39, name: "Lemonade", price: 300, category: "Drinks", image: "Assets/Images-d/Lemonade.webp"},
+    {id: 40, name: "Fresh Orange Juice", price: 400, category: "Drinks", image: "Assets/Images-d/Fresh orange juice.webp"},
+    {id: 41, name: "Mango Juice", price: 350, category: "Drinks", image: "Assets/Images-d/Mango juice.webp"},
+    {id: 42, name: "Strawberry Milkshake", price: 550, category: "Drinks", image: "Assets/Images-d/Strawberry Milkshake.webp"},
+    {id: 43, name: "Chocolate Milkshake", price: 600, category: "Drinks", image: "Assets/Images-d/Chocolate Milkshake.webp"},
+    {id: 44, name: "Vanilla Milkshake", price: 500, category: "Drinks", image: "Assets/Images-d/Vanilla Milkshake.webp"},
+    {id: 45, name: "Iced Coffee", price: 450, category: "Drinks", image: "Assets/Images-d/iced coffee.webp"},
+    {id: 46, name: "Cold Coffee", price: 500, category: "Drinks", image: "Assets/Images-d/Cold coffee.webp"},
+    {id: 47, name: "Mineral Water", price: 150, category: "Drinks", image: "Assets/Images-d/Mineral Water.webp"},
+    {id: 48, name: "Chocolate Frappe", price: 650, category: "Drinks", image: "Assets/Images-d/Chocolate Frappe.webp"}
+];
 
+const desserts = [
+    {
+        id: 49,
+        name: "Chocolate Brownie",
+        price: 450,
+        category: "Desserts",
+        image: "Assets/Images-d/chocolate Brownie.webp",
+        description: "A rich, fudgy chocolate brownie with a soft center."
+    },
+    {
+        id: 50,
+        name: "Chocolate Lava Cake",
+        price: 650,
+        category: "Desserts",
+        image: "Assets/Images-d/Chocolate Lava Cake.webp",
+        description: "A warm chocolate cake with a gooey chocolate center."
+    },
+    {
+        id: 51,
+        name: "Vanilla Ice Cream",
+        price: 300,
+        category: "Desserts",
+        image: "Assets/Images-d/Vanilla Ice Cream.webp",
+        description: "Smooth and creamy vanilla ice cream served chilled."
+    },
+    {
+        id: 52,
+        name: "Chocolate Sundae",
+        price: 450,
+        category: "Desserts",
+        image: "Assets/Images-d/Chocolate Sundae.webp",
+        description: "Creamy ice cream topped with rich chocolate sauce."
+    },
+    {
+        id: 53,
+        name: "Chocolate Chip Cookies",
+        price: 250,
+        category: "Desserts",
+        image: "Assets/Images-d/Chocolate Chip Cookies.webp",
+        description: "Golden cookies filled with delicious chocolate chips."
+    },
+    {
+        id: 54,
+        name: "Cheesecake",
+        price: 600,
+        category: "Desserts",
+        image: "Assets/Images-d/Cheesecake.webp",
+        description: "A creamy cheesecake with a buttery biscuit base."
+    },
+    {
+        id: 55,
+        name: "Donut",
+        price: 300,
+        category: "Desserts",
+        image: "Assets/Images-d/Donut.webp",
+        description: "A soft, fluffy donut topped with sweet chocolate glaze."
+    }
+];
 
 const order = [];
-const menuProducts = [...products, ...fries];
+const menuProducts = [...products, ...fries, ...drinks, ...desserts];
 const grid = document.getElementById("product-grid");
 const cartCount = document.getElementById("cart-count");
 
@@ -66,13 +141,13 @@ function createCard(product){
         : Object.assign(document.createElement("div"), { textContent: "Image coming soon" });
     image.className = "card-img";
     card.insertBefore(image, card.firstChild);
-    const checkbox = document.getElementById("product-checkbox-template").content.cloneNode(true);
-    const input = checkbox.querySelector(".checkbox");
-    input.id = `checkbox-${product.id}`;
-    input.dataset.id = product.id;
-    input.checked = order.some(item => item.id === product.id);
-    checkbox.querySelector(".checkbox-label").htmlFor = input.id;
-    card.querySelector(".card-footer").appendChild(checkbox);
+    const addControl = document.getElementById("product-add-template").content.cloneNode(true);
+    const addButton = addControl.querySelector(".add-btn");
+    const isAdded = order.some(item => item.id === product.id);
+    addButton.dataset.id = product.id;
+    addButton.setAttribute("aria-label", isAdded ? `Add another ${product.name}` : `Add ${product.name} to cart`);
+    addButton.classList.toggle("is-added", isAdded);
+    card.querySelector(".card-footer").appendChild(addControl);
 
     return card;
 }
@@ -91,6 +166,90 @@ function renderProducts(category = "Burger"){
 
 const categoryButtons = document.querySelectorAll(".category-buttons [data-target]");
 const categoryHeading = document.getElementById("category-heading");
+const cartToggle = document.getElementById("cart-toggle");
+const cartPanel = document.getElementById("cart-panel");
+const cartWidget = document.querySelector(".cart-widget");
+const cartBadge = document.getElementById("cart-badge");
+const cartItems = document.getElementById("cart-items");
+const cartEmpty = document.getElementById("cart-empty");
+const cartTotal = document.getElementById("cart-total");
+
+function updateCart(){
+    const itemCount = order.reduce((sum, item) => sum + item.qty, 0);
+    const total = order.reduce((sum, item) => sum + item.price * item.qty, 0);
+    cartBadge.textContent = itemCount;
+    cartCount.textContent = "Items in order: " + itemCount;
+    cartTotal.textContent = formatPrice(total);
+    cartEmpty.hidden = order.length > 0;
+    cartItems.innerHTML = "";
+
+    order.forEach(item => {
+        const row = document.createElement("li");
+        row.className = "cart-item";
+
+        const details = document.createElement("div");
+        details.className = "cart-item-details";
+        const name = document.createElement("span");
+        name.className = "cart-item-name";
+        name.textContent = item.name;
+        const price = document.createElement("span");
+        price.className = "cart-item-price";
+        price.textContent = formatPrice(item.price * item.qty);
+        details.append(name, price);
+
+        const quantity = document.createElement("div");
+        quantity.className = "cart-quantity";
+        const decrement = document.createElement("button");
+        decrement.type = "button";
+        decrement.dataset.cartAction = "decrease";
+        decrement.dataset.id = item.id;
+        decrement.setAttribute("aria-label", `Remove one ${item.name}`);
+        decrement.textContent = "-";
+        const amount = document.createElement("span");
+        amount.textContent = item.qty;
+        const increment = document.createElement("button");
+        increment.type = "button";
+        increment.dataset.cartAction = "increase";
+        increment.dataset.id = item.id;
+        increment.setAttribute("aria-label", `Add one ${item.name}`);
+        increment.textContent = "+";
+        quantity.append(decrement, amount, increment);
+
+        row.append(details, quantity);
+        cartItems.appendChild(row);
+    });
+
+    grid.querySelectorAll(".add-btn").forEach(button => {
+        const item = order.find(orderItem => orderItem.id === Number(button.dataset.id));
+        const product = menuProducts.find(menuItem => menuItem.id === Number(button.dataset.id));
+        const isAdded = Boolean(item);
+        button.classList.toggle("is-added", isAdded);
+        button.setAttribute("aria-label", isAdded
+            ? `Add another ${item.name} (in cart: ${item.qty})`
+            : `Add ${product.name} to cart`);
+    });
+}
+
+function closeCart(){
+    cartPanel.hidden = true;
+    cartToggle.setAttribute("aria-expanded", "false");
+    cartToggle.setAttribute("aria-label", "Open cart");
+}
+
+cartToggle.addEventListener("click", () => {
+    const isOpen = cartToggle.getAttribute("aria-expanded") === "true";
+    cartPanel.hidden = isOpen;
+    cartToggle.setAttribute("aria-expanded", String(!isOpen));
+    cartToggle.setAttribute("aria-label", isOpen ? "Open cart" : "Close cart");
+});
+
+document.addEventListener("click", event => {
+    if (!cartPanel.hidden && !cartWidget.contains(event.target)) closeCart();
+});
+
+document.addEventListener("keydown", event => {
+    if (event.key === "Escape" && !cartPanel.hidden) closeCart();
+});
 
 categoryButtons.forEach(button => {
     button.addEventListener("click", () => {
@@ -103,47 +262,37 @@ categoryButtons.forEach(button => {
     });
 });
 
-grid.addEventListener("change", (e) => {
-  const checkbox = e.target.closest(".checkbox");
-  if (!checkbox) return;
+grid.addEventListener("click", event => {
+    const addButton = event.target.closest(".add-btn");
+    if (!addButton) return;
 
-  const product = menuProducts.find(p => p.id === Number(checkbox.dataset.id));
-  if (!product) return;
+    const product = menuProducts.find(item => item.id === Number(addButton.dataset.id));
+    if (!product) return;
 
-  const existingIndex = order.findIndex(item => item.id === product.id);
-  if (checkbox.checked && existingIndex === -1) {
-    order.push({ ...product, qty: 1 });
-  } else if (!checkbox.checked && existingIndex !== -1) {
-    order.splice(existingIndex, 1);
-  }
+    const existingItem = order.find(item => item.id === product.id);
+    if (existingItem) {
+        existingItem.qty += 1;
+    } else {
+        order.push({ ...product, qty: 1 });
+    }
+    updateCart();
+});
 
-  const totalItems = order.reduce((sum, item) => sum + item.qty, 0);
-  cartCount.textContent = "Items in order: " + totalItems;
+cartItems.addEventListener("click", event => {
+    const quantityButton = event.target.closest("button[data-cart-action]");
+    if (!quantityButton) return;
+
+    const itemIndex = order.findIndex(item => item.id === Number(quantityButton.dataset.id));
+    if (itemIndex === -1) return;
+
+    if (quantityButton.dataset.cartAction === "increase") {
+        order[itemIndex].qty += 1;
+    } else {
+        order[itemIndex].qty -= 1;
+        if (order[itemIndex].qty === 0) order.splice(itemIndex, 1);
+    }
+    updateCart();
 });
 
 renderProducts();
-
-
-/*MAIN MENU BACK*/
-const sidebar = document.getElementById("sidebar");
-const toggle = document.getElementById("toggle");
-const icon = toggle.querySelector("use");
-const links = sidebar.querySelectorAll("nav a");
-
-toggle.addEventListener("click", () => {
-  const open = sidebar.classList.toggle("open");
-  icon.setAttribute("href", open ? "#close" : "#menu");
-  toggle.setAttribute("aria-expanded", open);
-});
-
-links.forEach((link) => {
-  link.addEventListener("click", (e) => {
-    e.preventDefault();
-    links.forEach((l) => {
-      l.classList.remove("on");
-      l.removeAttribute("aria-current");
-    });
-    link.classList.add("on");
-    link.setAttribute("aria-current", "page");
-  });
-});
+updateCart();

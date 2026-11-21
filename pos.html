@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POS | Grill Master</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/png" href="Assets/Logos/Fiery Grill Master Food Truck Logo.png">
+</head>
+<body>
+    <svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
+        <symbol id="menu" viewBox="0 0 24 24">
+            <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </symbol>
+        <symbol id="close" viewBox="0 0 24 24">
+            <path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
+        </symbol>
+    </svg>
+
+    <div class="app-layout">
+        <aside class="sidebar" id="sidebar">
+            <button id="toggle" type="button" aria-label="Toggle sidebar" aria-expanded="false">
+                <svg aria-hidden="true"><use href="#menu"></use></svg>
+            </button>
+            <a href="pos.html" class="logo">
+                <img src="Assets/Logos/Fiery Grill Master Food Truck Logo.png" alt="Grill Master Logo" width="90" height="50">
+                <span>Grill Master</span>
+            </a>
+            <nav aria-label="Main menu">
+                <a href="pos.html" class="on" aria-current="page">
+                    <img src="Assets/Logos/6408090.png" alt="" width="26" height="26"><span><b>POS</b></span>
+                </a>
+                <a href="customers.html">
+                    <img src="Assets/Logos/Customers.png" alt="" width="26" height="26"><span><b>Customers</b></span>
+                </a>
+                <a href="index.html">
+                    <img src="Assets/Logos/Orders.png" alt="" width="26" height="26"><span><b>Orders</b></span>
+                </a>
+            </nav>
+        </aside>
+        <main class="app-content page-content">
+            <div class="titlee"><h1>POS</h1></div>
+        </main>
+    </div>
+
+    <script src="js/sidebar.js"></script>
+    <footer class="copyright">
+        © Grill Master 2026 | Made by Nefeli Fernando | All Rights Reserved
+    </footer>
+</body>
+</html>
