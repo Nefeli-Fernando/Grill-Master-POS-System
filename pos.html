@@ -5,9 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>POS | Grill Master</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/customer.css">
+    <link rel="stylesheet" href="css/pos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="Assets/Logos/Fiery Grill Master Food Truck Logo.png">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
+    <center>
+                    <div class="main-titleee">
+                    <h2>Grill Master</h2>
+                </div>
+                </center>
     <svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
         <symbol id="menu" viewBox="0 0 24 24">
             <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
@@ -16,7 +25,46 @@
             <path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
         </symbol>
     </svg>
+        <main class="page">
+            <!--STATYS CARDS-->
+                <section class="stats">
+                    <div class="card stat">
+                        <p class="stat-label">Today's Sales</p>
+                        <p class="stat-value" id="todays-sales">Rs.0</p>
+                    </div>
+                    <div class="card stat">
+                        <p class="stat-label">Number of Orders</p>
+                        <p class="stat-value" id="order-count">0</p>
+                    </div>
+                    <div class="card stat">
+                        <p class="stat-label">Monthly Sales Goal</p>
+                        <p class="stat-value" id="goal-text">0%</p>
+                        <div class="bar"><div class="bar-fill" id="goal-bar"></div></div>
+                    </div>
+                </section>
 
+                <section class="card stock">
+                    <h2>Stock Renew Status</h2>
+                    <div id="stock-list"></div>
+                </section>
+
+                <section class="card chart-box">
+                    <h2>Monthly Sales</h2>
+                    <canvas id="sales-chart"></canvas>
+                </section>
+
+                <section class="card staff">
+                    <h2>Internal Management</h2>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr><th>Role</th><th>Name</th><th>Salary</th><th>Status</th></tr>
+                            </thead>
+                            <tbody id="staff-body"></tbody>
+                        </table>
+                    </div>
+                </section>
+        </main>
     <div class="app-layout">
         <aside class="sidebar" id="sidebar">
             <button id="toggle" type="button" aria-label="Toggle sidebar" aria-expanded="false">
@@ -44,6 +92,7 @@
     </div>
 
     <script src="js/sidebar.js"></script>
+    <script src="js/pos.js"></script>
     <footer class="copyright">
         © Grill Master 2026 | Made by Nefeli Fernando | All Rights Reserved
     </footer>

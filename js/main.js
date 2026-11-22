@@ -1,9 +1,9 @@
 const products = [
     {id : 1, name:"Classic Burger" , description:"A juicy chicken patty with fresh lettuce, tomato, and house sauce", price: 850, category: "Burger", image: "Assets/Images/Classic-burger.jpg" },
     {id : 2, name:"Cheese Burger", description:"A juicy beef patty topped with melted cheese and creamy sauce", price: 950, category: "Burger", image: "Assets/Images/Cheese-Burger.jpg"},
-    {id : 3, name: "Double Beef" ,description:"Two juicy beef patties layered with fresh toppings and sauce", price: 1350, category: "Burger", image: "Assets/Images/Beef-Burger.jpg"},
+    {id : 3, name: "Double Beef Burger" ,description:"Two juicy beef patties layered with fresh toppings and sauce", price: 1350, category: "Burger", image: "Assets/Images/Double beef burger.webp"},
     {id: 4, name: "Chicken Burger",description:"A tender chicken patty served with fresh lettuce and creamy mayo", price: 900, category: "Burger", image: "Assets/Images/Chicken-Burger-fixed.jpg"},
-    {id: 5, name: "Crispy Chicken Burger", description:"Golden, crispy chicken with crunchy lettuce and creamy sauce", price: 1050, category: "Burger", image: "Assets/Images/Crispy Chicken Burger.jpg"},
+    {id: 5, name: "Crispy Chicken Burger", description:"Golden, crispy chicken with crunchy lettuce and creamy sauce", price: 1050, category: "Burger", image: "Assets/Images/Crispy chicken burger.webp"},
     {id: 6, name: "Spicy Chicken Burger", description:"A spicy chicken patty topped with fresh lettuce and zesty sauce", price: 1000, category: "Burger", image: "Assets/Images/Spicy-Chichen-Burger.jpg"},
     {id: 7, name: "BBQ Burger",description:"A juicy beef patty topped with smoky BBQ sauce and onions", price: 1100, category: "Burger", image: "Assets/Images/BBQ-Burger-fixed.jpg"},
     {id: 8, name: "Bacon Burger", description:"A juicy beef patty topped with crispy bacon and melted cheese", price: 1250, category: "Burger", image: "Assets/Images/Bacon-Burger.webp"},
@@ -172,14 +172,21 @@ const cartWidget = document.querySelector(".cart-widget");
 const cartBadge = document.getElementById("cart-badge");
 const cartItems = document.getElementById("cart-items");
 const cartEmpty = document.getElementById("cart-empty");
+const cartSubtotal = document.getElementById("cart-subtotal");
+const cartDiscount = document.getElementById("cart-discount");
 const cartTotal = document.getElementById("cart-total");
+const discountOptions = [0, 5, 10, 15, 20, 25, 30, 40, 50, 75, 100];
 
 function updateCart(){
     const itemCount = order.reduce((sum, item) => sum + item.qty, 0);
-    const total = order.reduce((sum, item) => sum + item.price * item.qty, 0);
+    const subtotal = order.reduce((sum, item) => sum + item.price * item.qty, 0);
+    const discountTotal = order.reduce((sum, item) =>
+        sum + Math.round(item.price * item.discountPercent / 100) * item.qty, 0);
     cartBadge.textContent = itemCount;
     cartCount.textContent = "Items in order: " + itemCount;
-    cartTotal.textContent = formatPrice(total);
+    cartSubtotal.textContent = formatPrice(subtotal);
+    cartDiscount.textContent = "- " + formatPrice(discountTotal);
+    cartTotal.textContent = formatPrice(subtotal - discountTotal);
     cartEmpty.hidden = order.length > 0;
     cartItems.innerHTML = "";
 
@@ -194,8 +201,33 @@ function updateCart(){
         name.textContent = item.name;
         const price = document.createElement("span");
         price.className = "cart-item-price";
-        price.textContent = formatPrice(item.price * item.qty);
+        const itemDiscount = Math.round(item.price * item.discountPercent / 100) * item.qty;
+        price.textContent = formatPrice(item.price * item.qty - itemDiscount);
         details.append(name, price);
+
+        if (item.discountPercent > 0) {
+            const savings = document.createElement("span");
+            savings.className = "cart-item-savings";
+            savings.textContent = `${item.discountPercent}% off - Save ${formatPrice(itemDiscount)}`;
+            details.appendChild(savings);
+        }
+
+        const discountControl = document.createElement("label");
+        discountControl.className = "cart-discount-control";
+        discountControl.append("Discount");
+        const discountSelect = document.createElement("select");
+        discountSelect.className = "cart-discount";
+        discountSelect.dataset.id = item.id;
+        discountSelect.setAttribute("aria-label", `Discount for ${item.name}`);
+        discountOptions.forEach(percent => {
+            const option = document.createElement("option");
+            option.value = percent;
+            option.textContent = percent === 0 ? "None" : `${percent}%`;
+            option.selected = percent === item.discountPercent;
+            discountSelect.appendChild(option);
+        });
+        discountControl.appendChild(discountSelect);
+        details.appendChild(discountControl);
 
         const quantity = document.createElement("div");
         quantity.className = "cart-quantity";
@@ -273,8 +305,19 @@ grid.addEventListener("click", event => {
     if (existingItem) {
         existingItem.qty += 1;
     } else {
-        order.push({ ...product, qty: 1 });
+        order.push({ ...product, qty: 1, discountPercent: 0 });
     }
+    updateCart();
+});
+
+cartItems.addEventListener("change", event => {
+    const discountSelect = event.target.closest("select.cart-discount");
+    if (!discountSelect) return;
+
+    const item = order.find(orderItem => orderItem.id === Number(discountSelect.dataset.id));
+    if (!item) return;
+
+    item.discountPercent = Number(discountSelect.value);
     updateCart();
 });
 

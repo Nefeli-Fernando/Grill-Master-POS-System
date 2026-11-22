@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
+
 .table-wrap {
   width: 100%;
   overflow-x: auto;          /* scrolls sideways on small screens */
@@ -76,6 +79,28 @@
   font-size: 1.25rem;
 }
 
+
+.titlee{
+  font-family: "Rubik Dirt", system-ui;
+  font-weight: 200;
+  font-size:15px;
+  font-style: normal;
+}
+
+.main-titleee{
+  position: relative;
+  left: 50%;
+  grid-column: 1;
+  width: calc(100vw - 32px);
+  margin-left: 0;
+  transform: translateX(-50%);
+  justify-self: center;
+  text-align: center;
+  font-family: "New Rocker", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+}
 .customer-form {
   display: grid;
   grid-template-columns: repeat(3, minmax(150px, 1fr)) auto auto;

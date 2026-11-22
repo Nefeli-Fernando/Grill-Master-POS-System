@@ -34,10 +34,10 @@
             <button id="toggle" type="button" aria-label="Toggle sidebar" aria-expanded="false">
                 <svg aria-hidden="true"><use href="#menu"></use></svg>
             </button>
-            <a href="#" class="logo">
+            <!--<a href="#" class="logo">
                 <img src="Assets\Logos\Fiery Grill Master Food Truck Logo.png" alt="Grill Master Logo" width="90" height="50">
                 <span>Grill Master</span>
-            </a>
+            </a>-->
             <nav aria-label="Main menu">
                 <a href="pos.html">
                     <img src="Assets\Logos\6408090.png" alt="POS icon" width="26" height="26"><span><b>POS</b></span>
@@ -53,9 +53,11 @@
 
         <div class="app-content">
                 <header class="page-header">
-                  <div class="titlee">
+                <center>
+                    <div class="titlee">
                     <h2>Grill Master</h2>
                 </div>
+                </center>
                 <div class="cart-widget">
                     <button class="cart-toggle" id="cart-toggle" type="button" aria-label="Open cart" aria-expanded="false" aria-controls="cart-panel">
                     <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
@@ -69,6 +71,14 @@
                     <h2>Your order</h2>
                     <ul class="cart-items" id="cart-items"></ul>
                     <p class="cart-empty" id="cart-empty">Your cart is empty.</p>
+                    <div class="cart-summary-row">
+                        <span>Subtotal</span>
+                        <strong id="cart-subtotal">Rs. 0</strong>
+                    </div>
+                    <div class="cart-summary-row cart-discount-total">
+                        <span>Discount</span>
+                        <strong id="cart-discount">- Rs. 0</strong>
+                    </div>
                     <div class="cart-total">
                         <span>Total</span>
                         <strong id="cart-total">Rs. 0</strong>
@@ -95,9 +105,9 @@
             <template id="product-add-template">
                 <div class="add-control">
                     <button class="add-btn" type="button" aria-label="Add item to cart">
-                      <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
                         <path d="M12 5v14M5 12h14"></path>
-                      </svg>
+                    </svg>
                     </button>
                 </div>
             </template>

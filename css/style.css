@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Rubik+Dirt&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=New+Rocker&display=swap');
 
 body {
   margin: 0;
@@ -34,12 +35,6 @@ body {
   box-shadow: 0 12px 26px rgba(76, 35, 10, .14);
 }
 
-.titlee{
-  font-family: "Rubik Dirt", system-ui;
-  font-weight: 300;
-  font-size:30px;
-  font-style: normal;
-}
 
 .card-img {
   height: 160px;
@@ -140,10 +135,32 @@ body {
 }
 
 .page-header {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr;
   align-items: center;
-  justify-content: space-between;
   gap: 16px;
+}
+
+.page-header .titlee {
+  position: relative;
+  left: 50%;
+  grid-column: 1;
+  width: calc(100vw - 32px);
+  margin-left: 0;
+  transform: translateX(-50%);
+  justify-self: center;
+  text-align: center;
+   font-family: "New Rocker", system-ui;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 30px;
+}
+
+.page-header .cart-widget {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  justify-self: end;
 }
 
 .cart-widget {
@@ -234,6 +251,7 @@ body {
   display: grid;
   gap: 4px;
   min-width: 0;
+  flex: 1;
 }
 
 .cart-item-name {
@@ -245,6 +263,34 @@ body {
 .cart-item-price {
   color: #8A1F0D;
   font-size: .82rem;
+}
+
+.cart-item-savings {
+  color: #397343;
+  font-size: .76rem;
+}
+
+.cart-discount-control {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  color: #65676b;
+  font-size: .78rem;
+}
+
+.cart-discount {
+  min-height: 30px;
+  padding: 3px 6px;
+  border: 1px solid #e2cbb5;
+  border-radius: 6px;
+  background: #fff;
+  color: #2B1B12;
+  font: inherit;
+}
+
+.cart-discount:focus-visible {
+  outline: 3px solid rgba(229, 96, 14, .25);
+  outline-offset: 2px;
 }
 
 .cart-quantity {
@@ -277,6 +323,18 @@ body {
   padding: 12px 0;
   color: #65676b;
   font-size: .9rem;
+}
+
+.cart-summary-row {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 8px;
+  color: #65676b;
+  font-size: .88rem;
+}
+
+.cart-discount-total strong {
+  color: #397343;
 }
 
 .cart-total {
