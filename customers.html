@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Customers | Grill Master</title>
     <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/customer.css">
     <link rel="icon" type="image/png" href="Assets/Logos/Fiery Grill Master Food Truck Logo.png">
 </head>
 <body>
@@ -40,10 +41,45 @@
         </aside>
         <main class="app-content page-content">
             <div class="titlee"><h1>Customers</h1></div>
+            <section class="customers-section">
+                <h2 class="section-title">Customer Details</h2>
+                <form class="customer-form" id="customer-form">
+                    <input type="hidden" id="customer-id">
+                    <label>
+                        Name
+                        <input type="text" id="customer-name" required placeholder="Customer name">
+                    </label>
+                    <label>
+                        Phone
+                        <input type="tel" id="customer-phone" required placeholder="Phone number">
+                    </label>
+                    <label>
+                        Email
+                        <input type="email" id="customer-email" required placeholder="Email address">
+                    </label>
+                    <button type="submit" class="btn-save" id="customer-submit">Add Customer</button>
+                    <button type="button" class="btn-cancel" id="customer-cancel" hidden>Cancel</button>
+                </form>
+                <div class="table-wrap">
+                    <table class="customer-table">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Name</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="customer-body"></tbody>
+                    </table>
+                </div>
+            </section>
         </main>
     </div>
 
     <script src="js/sidebar.js"></script>
+    <script src="js/customers.js"></script>
     <footer class="copyright">
         © Grill Master 2026 | Made by Nefeli Fernando | All Rights Reserved
     </footer>
