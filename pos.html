@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POS | Grill Master</title>
+    <title>POS Dashboard | Grill Master</title>
     <link rel="stylesheet" href="css/style.css">
     <link rel="stylesheet" href="css/customer.css">
     <link rel="stylesheet" href="css/pos.css">
@@ -12,11 +12,6 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 </head>
 <body>
-    <center>
-                    <div class="main-titleee">
-                    <h2>Grill Master</h2>
-                </div>
-                </center>
     <svg class="icon-sprite" aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg">
         <symbol id="menu" viewBox="0 0 24 24">
             <path d="M3 6h18M3 12h18M3 18h18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
@@ -25,46 +20,7 @@
             <path d="m6 6 12 12M18 6 6 18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path>
         </symbol>
     </svg>
-        <main class="page">
-            <!--STATYS CARDS-->
-                <section class="stats">
-                    <div class="card stat">
-                        <p class="stat-label">Today's Sales</p>
-                        <p class="stat-value" id="todays-sales">Rs.0</p>
-                    </div>
-                    <div class="card stat">
-                        <p class="stat-label">Number of Orders</p>
-                        <p class="stat-value" id="order-count">0</p>
-                    </div>
-                    <div class="card stat">
-                        <p class="stat-label">Monthly Sales Goal</p>
-                        <p class="stat-value" id="goal-text">0%</p>
-                        <div class="bar"><div class="bar-fill" id="goal-bar"></div></div>
-                    </div>
-                </section>
 
-                <section class="card stock">
-                    <h2>Stock Renew Status</h2>
-                    <div id="stock-list"></div>
-                </section>
-
-                <section class="card chart-box">
-                    <h2>Monthly Sales</h2>
-                    <canvas id="sales-chart"></canvas>
-                </section>
-
-                <section class="card staff">
-                    <h2>Internal Management</h2>
-                    <div class="table-wrap">
-                        <table>
-                            <thead>
-                                <tr><th>Role</th><th>Name</th><th>Salary</th><th>Status</th></tr>
-                            </thead>
-                            <tbody id="staff-body"></tbody>
-                        </table>
-                    </div>
-                </section>
-        </main>
     <div class="app-layout">
         <aside class="sidebar" id="sidebar">
             <button id="toggle" type="button" aria-label="Toggle sidebar" aria-expanded="false">
@@ -86,8 +42,74 @@
                 </a>
             </nav>
         </aside>
-        <main class="app-content page-content">
-            <div class="titlee"><h1>POS</h1></div>
+
+        <main class="app-content pos-content">
+            <header class="pos-page-header">
+                <div>
+                    <p class="pos-eyebrow">Grill Master</p>
+                    <h1>POS Dashboard</h1>
+                    <p class="pos-subtitle">Sales, stock, and staff at a glance.</p>
+                </div>
+            </header>
+
+            <div class="page">
+                <section class="stats" aria-label="Sales overview">
+                    <article class="card stat">
+                        <p class="stat-label">Today's Sales</p>
+                        <p class="stat-value" id="todays-sales">Rs. 0</p>
+                        <p class="stat-note">Sales recorded today</p>
+                    </article>
+                    <article class="card stat">
+                        <p class="stat-label">Number of Orders</p>
+                        <p class="stat-value" id="order-count">0</p>
+                        <p class="stat-note">Orders recorded today</p>
+                    </article>
+                    <article class="card stat">
+                        <p class="stat-label">Monthly Sales Goal</p>
+                        <p class="stat-value" id="goal-text">0%</p>
+                        <div class="bar" role="progressbar" aria-label="Monthly sales goal progress"
+                             aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+                            <div class="bar-fill" id="goal-bar"></div>
+                        </div>
+                    </article>
+                </section>
+
+                <section class="card stock" aria-labelledby="stock-heading">
+                    <h2 id="stock-heading">Stock status</h2>
+                    <p class="section-description">Check low supplies and note reorder requests.</p>
+                    <div id="stock-list"></div>
+                    <p class="stock-feedback" id="stock-feedback" aria-live="polite"></p>
+                </section>
+
+                <section class="card chart-box" aria-labelledby="sales-heading">
+                    <h2 id="sales-heading">Monthly sales</h2>
+                    <p class="section-description">Sales by menu category.</p>
+                    <div class="chart-canvas">
+                        <canvas id="sales-chart" role="img" aria-label="Monthly sales by category"></canvas>
+                    </div>
+                </section>
+
+                <section class="card chart-box" aria-labelledby="category-heading">
+                    <h2 id="category-heading">Category breakdown</h2>
+                    <p class="section-description">Sales share across the menu.</p>
+                    <div class="chart-canvas">
+                        <canvas id="category-chart" role="img" aria-label="Sales share by menu category"></canvas>
+                    </div>
+                </section>
+
+                <section class="card staff" aria-labelledby="staff-heading">
+                    <h2 id="staff-heading">Team overview</h2>
+                    <p class="section-description">Current staff roles and availability.</p>
+                    <div class="table-wrap">
+                        <table>
+                            <thead>
+                                <tr><th scope="col">Role</th><th scope="col">Name</th><th scope="col">Salary</th><th scope="col">Status</th></tr>
+                            </thead>
+                            <tbody id="staff-body"></tbody>
+                        </table>
+                    </div>
+                </section>
+            </div>
         </main>
     </div>
 
